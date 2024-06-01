@@ -3,16 +3,21 @@
 simple な docker と gcpを使った ml piplineを１から組んでみるテスト.
 
 ### やること
-- [ ] gcsから読み込み + 学習 + 吐き出し
-- [ ]
+- [x] 学習pipelineの構築 (gcsで読み書き)
+- [x] 該当フォルダが更新されたとき自動でtrainingされるように(cloud function)
+- [ ] リファクタ
+- [ ] Api化(fast api)
+- [ ] Apiのデプロイ
 
+### 1. localからtraining
+```bash
+sh local_training.sh
+```
 
----
-### Dockerイメージのビルド
-docker build -t simple-training-pipeline .
-
-### コンテナの実行
-docker run -it --rm simple-training-pipeline
----
+### 2. Cloud Functionのデプロイ
+```bash
+chmod +x deploy_cloud_function.sh
+./deploy_cloud_function.sh
+```
 
 

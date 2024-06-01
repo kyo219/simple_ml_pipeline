@@ -9,6 +9,7 @@ from google.cloud import storage
 import io
 from datetime import datetime
 
+
 def preprocess_data(df, input_dict):
     # 不要なcolを削除
     df= df[[input_dict['y_col_name']] + input_dict['training_col_names']]

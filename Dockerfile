@@ -10,7 +10,8 @@ RUN pip install --no-cache-dir pandas
 RUN pip install --no-cache-dir lightgbm
 RUN pip install --no-cache-dir google-cloud-storage
 RUN pip install --no-cache-dir scikit-learn
-# RUN pip install --no-cache-dir -r requirements.txt --- 一旦
+RUN pip install --no-cache-dir google-cloud-run
+# RUN pip install --no-cache-dir -r requirements.txt --- 一旦なし
 
 # スクリプトと認証ファイル、設定ファイルをコンテナにコピー
 COPY train.py .
