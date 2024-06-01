@@ -10,7 +10,6 @@ import io
 from datetime import datetime
 from pytz import timezone
 
-
 def preprocess_data(df, input_dict):
     # 不要なcolを削除
     df= df[[input_dict['y_col_name']] + input_dict['training_col_names']]
@@ -19,6 +18,36 @@ def preprocess_data(df, input_dict):
     # 上記で特徴量の追加があったので, x_col_listを定義し直す.
     x_col_list = list(set(df.columns.to_list()) - set([input_dict['y_col_name']]))
     return df, x_col_list
+
+def save_model_to_gcs(bucket_name, model, destination_blob_name):
+    """モデルを直接GCSに保存する"""
+    storage_client = storage.Client()
+    bucket = storage_client.bucket(bucket_name)
+    blob = bucket.blob(destination_blob_name)
+    
+    # モデルをバイトストリームに保存
+    byte_stream = io.BytesIO()
+    pickle.dump(model, byte_stream)
+    byte_stream.seek(0)
+    
+    # GCSにアップロード
+    blob.upload_from_file(byte_stream)
+    print(f"Model uploaded to {destination_blob_name}.")
+
+def save_json_to_gcs(bucket_name, data, destination_blob_name):
+    """JSONデータを直接GCSに保存する"""
+    storage_client = storage.Client()
+    bucket = storage_client.bucket(bucket_name)
+    blob = bucket.blob(destination_blob_name)
+    
+    # JSONデータをバイトストリームに変換
+    byte_stream = io.BytesIO()
+    byte_stream.write(json.dumps(data).encode('utf-8'))
+    byte_stream.seek(0)
+    
+    # GCSにアップロード
+    blob.upload_from_file(byte_stream)
+    print(f"JSON uploaded to {destination_blob_name}.")
 
 def train_pipeline(input_dict):
     # GCSからCSVファイルをダウンロードして読み込む
@@ -47,25 +76,16 @@ def train_pipeline(input_dict):
     # === GCSへの出力 ===
     # 日付をとっておく
     date_str = datetime.now(timezone('Asia/Tokyo')).strftime('%Y-%m-%d')
-    # モデルの保存(local)
-    model_filename = 'model.pkl'
-    with open(model_filename, 'wb') as model_file:
-        pickle.dump(model, model_file)
-    print("Model trained and saved locally as model.pkl")
     # モデルをGCSにアップロード（latest）
-    upload_to_gcs(input_dict['bucket_name'], model_filename, f'{input_dict["dataset_name"]}/latest/model.pkl')
+    save_model_to_gcs(input_dict['bucket_name'], model, f'{input_dict["dataset_name"]}/model/latest/model.pkl')
     # モデルをGCSにアップロード（日付）
-    upload_to_gcs(input_dict['bucket_name'], model_filename, f'{input_dict["dataset_name"]}/{date_str}/model.pkl')
+    save_model_to_gcs(input_dict['bucket_name'], model, f'{input_dict["dataset_name"]}/model/{date_str}/model.pkl')
     # (predict時必要となる)設定ファイルをGCSにアップロード
     output_settings = {
         "x_cols":x_cols, "y_col":input_dict['y_col_name'], "f1_score":f1score, "date":date_str
     }
-    with open('output_setting.json', 'w') as f:
-        json.dump(output_settings, f)
-    # latest
-    upload_to_gcs(input_dict['bucket_name'], 'output_setting.json', f'{input_dict["dataset_name"]}/settings/latest/model_setting.json')
-    # 日付
-    upload_to_gcs(input_dict['bucket_name'], 'output_setting.json', f'{input_dict["dataset_name"]}/settings/{date_str}/model_setting.json')
+    save_json_to_gcs(input_dict['bucket_name'], output_settings, f'{input_dict["dataset_name"]}/settings/latest/model_setting.json')
+    save_json_to_gcs(input_dict['bucket_name'], output_settings, f'{input_dict["dataset_name"]}/settings/{date_str}/model_setting.json')
     print('=== train pipeline is end! ===')
 
 def load_csv_from_gcs(bucket_name, blob_name):
