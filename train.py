@@ -8,6 +8,7 @@ import sys
 from google.cloud import storage
 import io
 from datetime import datetime
+from pytz import timezone
 
 
 def preprocess_data(df, input_dict):
@@ -45,7 +46,7 @@ def train_pipeline(input_dict):
     f1score = f1_score(y_test, y_pred_binary)
     # === GCSへの出力 ===
     # 日付をとっておく
-    date_str = datetime.now().strftime('%Y-%m-%d')
+    date_str = datetime.now(timezone('Asia/Tokyo')).strftime('%Y-%m-%d')
     # モデルの保存(local)
     model_filename = 'model.pkl'
     with open(model_filename, 'wb') as model_file:
