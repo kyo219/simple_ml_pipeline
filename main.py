@@ -9,6 +9,7 @@ def trigger_training_pipeline(event, context):
     print(f"File: {file_name}, Bucket: {bucket_name}")
     if file_name == 'titanic/train_raw/latest/train.csv':
         publish_message_to_pubsub()
+        print("GO!!!!!!!!!!!!!!!!!!!!!")
 
 def publish_message_to_pubsub():
     """Publishes a message to a Pub/Sub topic to trigger the Cloud Run job indirectly."""

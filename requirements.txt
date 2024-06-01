@@ -3,3 +3,6 @@ lightgbm
 google-cloud-storage
 protobuf
 google-cloud-pubsub
+scikit-learn
+google-cloud-run
+protobuf
