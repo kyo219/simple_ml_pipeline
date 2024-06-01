@@ -1,4 +1,8 @@
+# What this repo is ?
 超シンプルなML pipeline (GCP)を組んでみる.
+
+---
+# PlanPlan
 
 ### できてること
 - [x] 該当フォルダが更新されたとき自動で学習が回り, モデル.pklと設定がgcsに置かれる.
@@ -16,6 +20,8 @@
 - [ ] WebPageのデプロイ
 
 ---
+# How to training
+
 ### 1. localからtraining
 ```bash
 sh local_training.sh
