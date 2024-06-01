@@ -1,0 +1,1 @@
+{"training_col_names": ["Age", "Pclass", "Fare"], "y_col_name": "Survived", "bucket_name": "simple-ml-pipeline"}
