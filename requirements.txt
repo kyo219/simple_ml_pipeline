@@ -1,0 +1,3 @@
+pandas
+lightgbm
+google-cloud-storage

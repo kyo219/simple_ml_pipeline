@@ -9,6 +9,7 @@ RUN pip install --no-cache-dir pandas
 RUN pip install --no-cache-dir pandas
 RUN pip install --no-cache-dir lightgbm
 RUN pip install --no-cache-dir google-cloud-storage
+RUN pip install --no-cache-dir scikit-learn
 # RUN pip install --no-cache-dir -r requirements.txt --- 一旦
 
 # スクリプトと認証ファイル、設定ファイルをコンテナにコピー
