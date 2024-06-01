@@ -11,7 +11,8 @@ RUN pip install --no-cache-dir google-cloud-storage
 RUN pip install --no-cache-dir scikit-learn
 RUN pip install --no-cache-dir google-cloud-run
 RUN pip install --no-cache-dir protobuf
-# RUN pip install --no-cache-dir -r requirements.txt --- 一旦なし
+RUN pip install --no-cache-dir google-cloud-pubsub
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # スクリプトと認証ファイル、設定ファイルをコンテナにコピー
 COPY train.py .

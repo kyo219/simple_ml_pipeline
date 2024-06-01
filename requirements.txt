@@ -2,3 +2,4 @@ pandas
 lightgbm
 google-cloud-storage
 protobuf
+google-cloud-pubsub
