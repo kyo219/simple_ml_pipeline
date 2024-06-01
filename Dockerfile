@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.9
 
 # 作業ディレクトリを設定
 WORKDIR /app
@@ -6,11 +6,11 @@ WORKDIR /app
 # 必要なパッケージをインストール
 COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir pandas
-RUN pip install --no-cache-dir pandas
 RUN pip install --no-cache-dir lightgbm
 RUN pip install --no-cache-dir google-cloud-storage
 RUN pip install --no-cache-dir scikit-learn
 RUN pip install --no-cache-dir google-cloud-run
+RUN pip install --no-cache-dir protobuf
 # RUN pip install --no-cache-dir -r requirements.txt --- 一旦なし
 
 # スクリプトと認証ファイル、設定ファイルをコンテナにコピー

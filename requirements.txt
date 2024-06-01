@@ -1,3 +1,4 @@
 pandas
 lightgbm
 google-cloud-storage
+protobuf

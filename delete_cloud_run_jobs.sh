@@ -1,0 +1,1 @@
+gcloud beta run jobs delete lightgbm-training-job --region us-central1

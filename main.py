@@ -1,7 +1,7 @@
 import os
 from google.cloud import storage
 from google.cloud import run_v2
-from google.protobuf import duration_pb2
+# from google.protobuf import duration_pb2
 
 def trigger_training_pipeline(event, context):
     """Background Cloud Function to be triggered by Cloud Storage.
