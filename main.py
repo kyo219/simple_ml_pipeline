@@ -5,7 +5,9 @@ from google.cloud import pubsub_v1
 def trigger_training_pipeline(event, context):
     """Background Cloud Function to be triggered by Cloud Storage."""
     file_name = event['name']
-    if file_name == 'train_raw/latest/train.csv':
+    bucket_name = event['bucket']
+    print(f"File: {file_name}, Bucket: {bucket_name}")
+    if file_name == 'titanic/train_raw/latest/train.csv':
         publish_message_to_pubsub()
 
 def publish_message_to_pubsub():
