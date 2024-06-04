@@ -9,6 +9,10 @@
 
 
 
+https://github.com/kyo219/simple_ml_pipeline/assets/75966417/db27bb3a-0352-4065-9279-9c76e28a85b9
+
+
+
 ### できてないこと（やる）
 - [ ] リファクタ
 - [ ] Api化(fast apiを導入)して、GCSに置かれたlatestモデルとsettingを読み込み、適当な引数を持って予測ができるようにする
