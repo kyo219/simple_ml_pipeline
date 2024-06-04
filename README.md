@@ -7,7 +7,6 @@
 ### できてること
 - [x] GCS上の該当フォルダが更新されたとき自動で学習が回り, モデル.pklと設定がgcsに置かれる.
 
-https://github.com/kyo219/simple_ml_pipeline/assets/75966417/367ad3c2-948f-4d2a-a0f7-021db70faa53
 
 
 ### できてないこと（やる）
