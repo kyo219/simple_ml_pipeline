@@ -1,5 +1,5 @@
 # What this repo is ?
-超シンプルなML pipeline (GCP)を組んでみる.
+超シンプルなML pipeline (GCP)を組んでみる. (GPT4の力を借りて...)
 
 ---
 # PlanPlan
@@ -31,6 +31,11 @@ sh local_training.sh
 ```bash
 chmod +x deploy_cloud_function.sh
 ./deploy_cloud_function.sh
+```
+
+### 3. delete cloud run jobs
+```bash
+sh delete_cloud_run_jobs.sh
 ```
 
 ---

@@ -6,10 +6,9 @@ PROJECT_ID=$(jq -r '.project_id' $CONFIG_FILE)
 REGION=$(jq -r '.region' $CONFIG_FILE)
 BUCKET_NAME=$(jq -r '.bucket_name' $CONFIG_FILE)
 
-# Dockerイメージのビルド
-docker build -t gcr.io/$PROJECT_ID/lightgbm-trainer .
-# DockerイメージをGoogle Container Registryにプッシュ
-docker push gcr.io/$PROJECT_ID/lightgbm-trainer
+# Dockerイメージのビルド (マルチアーキテクチャ対応)
+docker buildx create --use
+docker buildx build --platform linux/amd64,linux/arm64 -t gcr.io/$PROJECT_ID/lightgbm-trainer . --push
 
 # Cloud Run Job の作成
 gcloud beta run jobs create lightgbm-training-job \
